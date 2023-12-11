@@ -14,11 +14,11 @@
         <?php 
          
          include("config.php");
-         if(isset($_POST['register'])){
-            $id = $_POST['id'];
+         if(isset($_POST['submit']) && $_POST["submit"] == "register"){
             $name = $_POST['username'];
             $email = $_POST['email'];
-            $password = $_POST['password'];
+            $password = md5($_POST['password']);
+
 
          //verifying the unique email
 
@@ -31,8 +31,8 @@
             echo "<a href='javascript:self.history.back()'><button class='btn'>Go Back</button>";
          }
          else{
-            require_once "DBConnection.php";
-            mysqli_query($con,"INSERT INTO customer_registered(Id,Username,Email,Password) VALUES('id','$name','$email','$password')") or die("Error Occured");
+            require_once "includes/dbconnection.php";
+            mysqli_query($con,"INSERT INTO registered_users(`username`,`email`,`password`) VALUES('$name','$email','$password')") or die("Error Occured");
 
             echo "<div class='message'>
                       <p>Registration successfully!</p>
@@ -47,7 +47,7 @@
         ?>
 
             <header>Sign Up</header>
-            <form action="login_form.php" method="POST">
+            <form action="" method="POST">
                 <div class="field input">
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username" autocomplete="off" required>
@@ -66,7 +66,7 @@
 
                 <div class="field">
                     
-                    <input type="submit" class="btn" name="submit" value="Register" required>
+                    <input type="submit" class="btn" name="submit" value="register" required>
                 </div>
                 <div class="links">
                     Already a member? <a href="login_form.php">Sign In</a>

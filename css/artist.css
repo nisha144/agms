@@ -8,6 +8,7 @@
 	font-family: 'Josefin Sans', sans-serif;
 }
 
+
 .wrapper .top_nav{
 	margin-top: 20px;
 	
@@ -110,9 +111,9 @@
 	transform: scale(1.05);
 }
 .box .avtar{
-	width: 200px;
-	height: 200px;
-	border-radius: 100%;
+	width: 250px;
+	height: 250px;
+	/* border-radius: 100%; */
 	overflow: hidden;
 	margin: 0 auto 20px;
 }
@@ -159,4 +160,3 @@
 	font-size: 15px;
 	
 }
-

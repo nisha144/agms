@@ -19,34 +19,34 @@ include('includes/dbconnection.php');
         <div class="box form-box">
             <?php 
              
-              //include("config.php");
-              if(isset($_POST['register'])){
-                $email = mysqli_real_escape_string($con,$_POST['email']);
-                $password = mysqli_real_escape_string($con,$_POST['password']);
+              include("config.php");
+              if(isset($_POST['submit']) && $_POST["submit"] == "login"){
+                $email = $_POST['email'];
+                $password = md5($_POST['password']);
 
-                $result = mysqli_query($con,"SELECT * FROM cregistered_users WHERE Email='$email' AND Password='$password' ") or die("Error Occurred");
+                $result = mysqli_query($con,"SELECT * FROM registered_users WHERE `email`='$email' AND `password`='$password' ") or die("Error Occurred");
                 $row = mysqli_fetch_assoc($result);
-
                 if(is_array($row) && !empty($row)){
-                    $_SESSION['valid'] = $row['Email'];
-                    $_SESSION['username'] = $row['Username'];
-                  
+                    $_SESSION['valid'] = $row['email'];
+                    $_SESSION['username'] = $row['username'];
+                    header("Location: index.php");
+
                 }else{
                     echo "<div class='message'>
                       <p>Wrong Username or Password</p>
                        </div> <br>";
-                   echo "<a href='register.php'><button class='btn'> Go Back </button>";
+                   echo "<a href='login_form.php'><button class='btn'> Go Back </button>";
          
                 }
-                if(isset($_SESSION['valid'])){
-                    header("Location: index.html");
-                }
+                // if(isset($_SESSION['valid'])){
+                //     header("Location: index.php");
+                // }
               }else{
 
             
             ?>
             <header>Login</header>
-            <form action="index.php" method="post">
+            <form action="" method="post">
                 <div class="field input">
                     <label for="email">Email</label>
                     <input type="text" name="email" id="email" autocomplete="off" required>
@@ -59,7 +59,7 @@ include('includes/dbconnection.php');
 
                 <div class="field">
                     
-                    <input type="submit" class="btn" name="submit" value="Login" required>
+                    <input type="submit" class="btn" name="submit" value="login" required>
                 </div>
                 <div class="links">
                     Don't have account? <a href="register.php">Sign Up Now</a>
